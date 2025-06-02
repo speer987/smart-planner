@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "DM Sans";
+  src: url(./fonts/DMSans_18pt-Regular.ttf);
+}
+
+@font-face {
+  font-family: "DM Sans Black";
+  src: url(./fonts/DMSans_18pt-Black.ttf);
+}
+
+
+@theme {  
+  --font-dm: "DM Sans", "sans-serif";
+  --font-black: "DM Sans Black", "sans-serif";
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
