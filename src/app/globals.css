@@ -14,6 +14,7 @@
 @theme {  
   --font-dm: "DM Sans", "sans-serif";
   --font-black: "DM Sans Black", "sans-serif";
+  --shadow: shadow-[inset_0_6px_6px_-6_rgba(0,0,0,0.3)]
 }
 
 :root {
