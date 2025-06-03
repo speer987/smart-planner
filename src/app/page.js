@@ -149,7 +149,7 @@ export default function Home() {
           d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         ></path>
       </svg>
-      <div className="bg-indigo-50 z-0 h-screen relative">
+      <div className="bg-indigo-50 z-0 relative">
         <div className="p-20 flex flex-col gap-5">
           <div>
             <h1 className="font-black text-3xl">
@@ -224,6 +224,11 @@ export default function Home() {
             d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>
+      </div>
+      <div className="bg-indigo-200 h-screen p-20">
+        <h1 className="font-black text-3xl">
+          Now, let's break your SMART goal down into quarterly goals!
+        </h1>
       </div>
     </div>
   );

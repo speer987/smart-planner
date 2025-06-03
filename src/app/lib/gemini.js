@@ -10,7 +10,7 @@ const ai = new GoogleGenAI({
 export async function suggestSmartGoals(enteredGoal) {
   const response = await ai.models.generateContent({
     model: "gemini-1.5-flash",
-    contents: `Return a single JSON array of 10 string literals showing how the goal of ${enteredGoal} can be reformatted as specific, measurable, achievable, relevant, and time-bound goal that has an end date of December ${thisYear}. Keep changes minimal, and try to add words to the goal I gave you instead of rephrasing it completely. Make sure that the goals are not vague. Each goal should clearly specify what exactly will be done, include measurable progress, be realistic, align with the overall objective, and have a firm deadline. Keep each SMART goal brief, clear, and within 15 words. `,
+    contents: `Return a single JSON array of 10 string literals that reformat the goal "${enteredGoal}" into SMART goals—specific, measurable, achievable, relevant, and time-bound with a deadline of December ${thisYear}. Goals should not have an end date before December of ${thisYear}. Keep each SMART goal clear, concise (within 15 words), and closely tied to the original goal by adding to it rather than rephrasing it completely. Ensure each goal is broad enough to break into quarterly tasks later, but still specific enough to measure progress and define success. Return only the JSON array, with no explanation or extra text.`,
   });
   const text = response.text;
   console.log(response.text);
