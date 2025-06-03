@@ -7,6 +7,45 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+export async function getMonthlyPlan(plan) {
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
+    contents: `You are given this quarterly plan that breaks a goal into 4 high-level quarterly objectives: ${plan}.
+
+  Your task is to break down each quarterly objective into 3 specific monthly goals — one for each month in that quarter.
+
+  Each monthly goal should:
+  - Begin with the name of the month (e.g., "January: ...")
+  - Be specific, action-oriented, and build progressively toward the quarterly objective
+  - Be suitable for someone with no prior experience
+
+  Return a JSON object where each key is the quarter ("Q1", "Q2", "Q3", "Q4"), and the value is an array of 3 string literals representing the goals for each month.
+
+  Only return the JSON object. Do not include explanations or extra text.
+`,
+  });
+  const text = response.text;
+  console.log(response.text);
+
+  const cleanedText = text
+    .trim()
+    // Remove opening fence with optional "json"
+    .replace(/^```json\s*\n?/, "")
+    // Remove closing fence
+    .replace(/```$/, "")
+    .trim();
+
+  try {
+    console.log("Raw text before JSON.parse:", cleanedText);
+    const questions = JSON.parse(cleanedText);
+    console.log("goals for quarters", questions);
+    return questions;
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
+    return [];
+  }
+}
+
 export async function generateQuarterlyPlans(goal, userAnswers) {
   const response = await ai.models.generateContent({
     model: "gemini-1.5-flash",
