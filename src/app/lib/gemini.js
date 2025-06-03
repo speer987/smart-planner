@@ -7,6 +7,79 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+export async function generateQuarterlyPlans(goal, userAnswers) {
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
+    contents: `Based on the following goal and the user's responses, break the goal into four high-level quarterly outcomes.
+    Each quarter should include one sentence about what should be accomplished during that period to make meaningful progress.
+    Keep the plans focused, realistic, and build momentum over time.
+
+    Goal: "${goal}"
+    Describing the goal: "${userAnswers}"
+
+    Return a JSON array containing exactly four arrays.  
+    Each of these four arrays represents a distinct plan with four string literals, one for each quarter (Q1 to Q4).  
+    Each plan should reflect a different strategy or approach to achieving the goal.  
+    Each quarterly outcome should be broad enough to be broken down into monthly goals but still clear and directional. Assume the user has no prior experience with this goal.  
+    Do not include any explanations, labels, or extra text — only return the raw JSON array.
+`,
+  });
+  const text = response.text;
+  console.log(response.text);
+
+  const cleanedText = text
+    .trim()
+    // Remove opening fence with optional "json"
+    .replace(/^```json\s*\n?/, "")
+    // Remove closing fence
+    .replace(/```$/, "")
+    .trim();
+
+  try {
+    console.log("Raw text before JSON.parse:", cleanedText);
+    const questions = JSON.parse(cleanedText);
+    console.log("goals for quarters", questions);
+    return questions;
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
+    return [];
+  }
+}
+
+export async function clarifyGoal(enteredGoal) {
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
+    contents: `The user entered the following goal: "${enteredGoal}".
+                Generate 2–3 clarifying questions in a JSON array of string literals. These questions should help the user provide more detailed input to refine their goal, so it can later be broken down into specific quarterly steps. Focus on:
+                - What success looks like for them (specific outcome or result)
+                - Why this goal is important to them (motivation or purpose)
+                - How they might want to achieve it (methods, resources, or preferences)
+              Make the questions simple, relevant, and specific to their goal. Do not suggest next steps or perform the breakdown yet. Only return the questions.
+ 
+`,
+  });
+  const text = response.text;
+  console.log(response.text);
+
+  const cleanedText = text
+    .trim()
+    // Remove opening fence with optional "json"
+    .replace(/^```json\s*\n?/, "")
+    // Remove closing fence
+    .replace(/```$/, "")
+    .trim();
+
+  try {
+    console.log("Raw text before JSON.parse:", cleanedText);
+    const questions = JSON.parse(cleanedText);
+    console.log("goals json", questions);
+    return questions;
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
+    return [];
+  }
+}
+
 export async function suggestSmartGoals(enteredGoal) {
   const response = await ai.models.generateContent({
     model: "gemini-1.5-flash",
