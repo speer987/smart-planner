@@ -56,11 +56,11 @@ export async function generateQuarterlyPlans(goal, userAnswers) {
     Goal: "${goal}"
     Describing the goal: "${userAnswers}"
 
-    Return a JSON array containing exactly four arrays.  
+    Return a JSON array containing exactly four arrays. There should not be five or three. 
     Each of these four arrays represents a distinct plan with four string literals, one for each quarter (Q1 to Q4).  
     Each plan should reflect a different strategy or approach to achieving the goal.  
     Each quarterly outcome should be broad enough to be broken down into monthly goals but still clear and directional. Assume the user has no prior experience with this goal.  
-    Do not include any explanations, labels, or extra text — only return the raw JSON array.
+    Do not include any explanations, labels, or extra text — only return the raw JSON array. Do not include the name of the quarter in the string literals, and make sure each string literal is around 15 words maximum.
 `,
   });
   const text = response.text;
