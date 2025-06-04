@@ -240,22 +240,26 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 relative z-20">
+        <div className="grid grid-cols-4 gap-4 relative z-20 h-screen">
           {quarterlyPlans?.map((plan, index) => (
-            <button
-              className="bg-white text-left p-3 rounded-md font-dm text-base hover:ring-2 hover:ring-indigo-800"
-              key={index}
-              onClick={() => handleSelectedQPlan(plan)}
-            >
+            <div className="flex flex-col gap-1 text-center" key={index}>
               <p className="font-black">Plan {index + 1}</p>
-              {plan?.map((item, index) => (
-                <ul key={index} className="">
-                  <li>
-                    Q{index + 1}: {item}
-                  </li>
-                </ul>
-              ))}
-            </button>
+              <button
+                className="flex flex-col gap-3 bg-white text-left p-3 rounded-md font-dm text-base hover:ring-2 hover:ring-indigo-800 h-full"
+                onClick={() => handleSelectedQPlan(plan)}
+              >
+                {plan?.map((item, index) => (
+                  <ul key={index} className="h-1/4 flex flex-col">
+                    <li className="relative bg-indigo-50 rounded-md p-2 flex-grow flex flex-col">
+                      {item}
+                      <p className="text-xs uppercase tracking-wide rounded-tl-md rounded-br-md bg-indigo-100  p-1 w-max absolute bottom-0 right-0">
+                        Q{index + 1}
+                      </p>
+                    </li>
+                  </ul>
+                ))}
+              </button>
+            </div>
           ))}
         </div>
         {/* SVG goes here */}
