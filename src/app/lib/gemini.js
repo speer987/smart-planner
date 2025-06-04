@@ -7,6 +7,41 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+export async function getWeeklyAndDaily(monthlyPlans) {
+  console.log("monthly", monthlyPlans);
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
+    contents: `I have an dictionary where the key is the quarter, and the values are arrays of four string literals, where each string literal. This is the dictionary: ${JSON.stringify(
+      monthlyPlans
+    )}. For each string literal, break it down into:
+    - 4 weekly goals that progress logically toward achieving the monthly objective.
+    - For each week, generate 0-1 task for a day that are simple, beginner-friendly, and build up to the weekly goal. Make sure to write which day of the week it should take place.
+
+    Keep the tasks short, clear, and instructional. Focus on helping a beginner stay motivated and consistent. Use a tone that’s encouraging and clear.
+`,
+  });
+  const text = response.text;
+  console.log(response.text);
+
+  const cleanedText = text
+    .trim()
+    // Remove opening fence with optional "json"
+    .replace(/^```json\s*\n?/, "")
+    // Remove closing fence
+    .replace(/```$/, "")
+    .trim();
+
+  try {
+    console.log("Raw text before JSON.parse:", cleanedText);
+    const questions = JSON.parse(cleanedText);
+    console.log("goals for quarters", questions);
+    return questions;
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
+    return [];
+  }
+}
+
 export async function getMonthlyPlan(plan) {
   const response = await ai.models.generateContent({
     model: "gemini-1.5-flash",

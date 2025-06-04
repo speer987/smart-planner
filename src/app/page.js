@@ -7,6 +7,7 @@ import {
   generateSingleGoal,
   suggestSmartGoals,
   getMonthlyPlan,
+  getWeeklyAndDaily,
 } from "./lib/gemini";
 
 export default function Home() {
@@ -21,6 +22,21 @@ export default function Home() {
   const [quarterlyPlans, setQuarterlyPlans] = useState([]);
   const [selectedQPlan, setSelectedQPlan] = useState([]);
   const [monthlyPlan, setMonthlyPlan] = useState([]);
+  const [weeklyPlan, setWeeklyPlan] = useState();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   const handleTextAreaChange = (index, value) => {
     const newAnswers = [...qAnswers];
@@ -39,6 +55,9 @@ export default function Home() {
     const tempMonthlyPlan = await getMonthlyPlan(plan);
     setMonthlyPlan(tempMonthlyPlan);
     console.log(tempMonthlyPlan);
+    // const tempWeeklyAndDailyPlan = await getWeeklyAndDaily(tempMonthlyPlan);
+    // setWeeklyPlan(tempWeeklyAndDailyPlan);
+    // console.log(tempWeeklyAndDailyPlan);
   }
 
   async function handleFormSubmit() {
@@ -291,10 +310,10 @@ export default function Home() {
               <div className="absolute z-10 flex justify-center items-center font-black rounded-full bg-indigo-900 border-1 border-indigo-500 text-white w-12 h-12">
                 {quarter}
               </div>
-              <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500">
+              <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500 w-full">
                 {goals.map((goal, index) => (
                   <div key={index} className="w-1/3 flex">
-                    <ul className="rounded-md bg-white p-3 ">
+                    <ul className="rounded-md bg-white p-3 w-full">
                       <p className="text-sm tracking-wider uppercase">
                         {goal.split(":")[0]}
                       </p>
@@ -322,10 +341,17 @@ export default function Home() {
 
       <div className="relative z-0 bg-indigo-600 h-screen w-screen p-20 flex flex-col gap-5 justify-center items-center font-dm border-2 text-white">
         <p className="font-black  text-3xl">
-          Now, lets see your weekly and daily goals.
+          Now, let's see your weekly and daily goals.
         </p>
         <div className="text-lg">
-          <button>January</button>
+          {months.map((month, index) => (
+            <button
+              key={index}
+              className="rounded-md bg-indigo-500 p-3 py-2 m-2 hover:bg-indigo-300 transition ease-in-out"
+            >
+              {month}
+            </button>
+          ))}
         </div>
       </div>
     </div>
