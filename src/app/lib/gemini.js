@@ -45,6 +45,92 @@ export async function getWeeklyAndDaily(monthlyPlans) {
 export async function getMonthlyPlan(plan) {
   const response = await ai.models.generateContent({
     model: "gemini-1.5-flash",
+    contents: `You are given this quarterly plan that breaks a goal into 4 high-level quarterly objectives:
+"${plan}".
+
+Your task is to break down each quarterly objective into:
+    - 3 monthly goals (one per month)
+    - Each monthly goal should then be broken down into:
+        - 4 weekly goals, one for each week of the month
+        - Each weekly goal should then be broken down into:
+            - Daily goals for every other day of the week, beginning on Monday (e.g., Mon, Wed, Fri, Sun)
+
+Guidelines:
+    Monthly goals should:
+      - Not begin with the name of the month (e.g., "January: ...")
+      - Be specific, action-oriented, and appropriate for someone with no prior experience
+      - Progressively build toward the quarterly objective
+
+    Weekly goals should:
+      - Directly support the monthly goal
+      - Be clear and measurable (e.g., “Practice drawing 3 times this week for 20 minutes”)
+
+    Daily goals should:
+      - Occur every other day, starting with Monday
+      - Align with the weekly goal (e.g., if the weekly goal says “3 runs,” then daily goals should specify which days those runs happen)
+      - Use “Rest” or leave blank on off days
+
+    Return Format:
+    Return a single JSON object structured exactly like this:
+
+    {
+      "Q1": {
+        "January": {
+          "monthly_goal": "January: ...",
+          "weekly_goals": [
+            {
+              "weekly_goal": "...",
+              "daily_goals": {
+                "Monday": "...",
+                "Tuesday": "",
+                "Wednesday": "...",
+                "Thursday": "",
+                "Friday": "...",
+                "Saturday": "",
+                "Sunday": "..."
+              }
+            },
+            { ... }, 
+            { ... }, 
+            { ... }
+          ]
+        },
+        "February": { ... },
+        "March": { ... }
+      },
+      "Q2": { ... },
+      "Q3": { ... },
+      "Q4": { ... }
+    }
+
+    Only return the JSON object. Do not include any explanations or extra text.`,
+  });
+
+  const text = response.text;
+  console.log(response.text);
+
+  const cleanedText = text
+    .trim()
+    // Remove opening fence with optional "json"
+    .replace(/^```json\s*\n?/, "")
+    // Remove closing fence
+    .replace(/```$/, "")
+    .trim();
+
+  try {
+    console.log("Raw text before JSON.parse:", cleanedText);
+    const questions = JSON.parse(cleanedText);
+    console.log("goals for quarters", questions);
+    return questions;
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
+    return [];
+  }
+}
+
+export async function getMonthlyPlanOld(plan) {
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
     contents: `You are given this quarterly plan that breaks a goal into 4 high-level quarterly objectives: ${plan}.
 
   Your task is to break down each quarterly objective into 3 specific monthly goals — one for each month in that quarter.

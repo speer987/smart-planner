@@ -299,25 +299,25 @@ export default function Home() {
           ></path>
         </svg>
       </div>
-      <div className="relative z-0 bg-indigo-400 h-screen w-screen p-20 flex flex-col gap-5 justify-center items-center font-dm border-2">
+      <div className="relative z-0 bg-indigo-400 h-screen w-screen p-20 flex flex-col gap-5 justify-center items-center font-dm">
         <p className="font-black text-3xl">
           Now, let's see your monthly goals based on the quarterly plan you
           chose!
         </p>
-        <div className="relative z-20 flex flex-col gap-1">
-          {Object.entries(monthlyPlan).map(([quarter, goals], index) => (
-            <div key={index} className="flex flex-row items-center">
+        <div className="relative z-20 flex flex-col gap-1 h-full">
+          {Object.entries(monthlyPlan).map(([quarter, months], index) => (
+            <div className="flex flex-row h-1/4 items-center" key={index}>
               <div className="absolute z-10 flex justify-center items-center font-black rounded-full bg-indigo-900 border-1 border-indigo-500 text-white w-12 h-12">
                 {quarter}
               </div>
-              <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500 w-full">
-                {goals.map((goal, index) => (
+              <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500 w-full h-full">
+                {Object.entries(months).map(([month, details], index) => (
                   <div key={index} className="w-1/3 flex">
                     <ul className="rounded-md bg-white p-3 w-full">
                       <p className="text-sm tracking-wider uppercase">
-                        {goal.split(":")[0]}
+                        {month}
                       </p>
-                      <li>{goal.split(":")[1]}</li>
+                      <li>{details.monthly_goal}</li>
                     </ul>
                   </div>
                 ))}
