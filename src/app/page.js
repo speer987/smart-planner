@@ -9,6 +9,7 @@ import {
   getMonthlyPlan,
   getWeeklyAndDaily,
 } from "./lib/gemini";
+import MonthlyPlan from "./components/MonthlyPlan";
 
 export default function Home() {
   const [goalsSuggestions, setGoalSuggestions] = useState([]);
@@ -23,6 +24,8 @@ export default function Home() {
   const [selectedQPlan, setSelectedQPlan] = useState([]);
   const [monthlyPlan, setMonthlyPlan] = useState([]);
   const [weeklyPlan, setWeeklyPlan] = useState();
+  const [flatMonthlyPlans, setFlatMonthlyPlans] = useState();
+  const [selectedMonth, setSelectedMonth] = useState();
   const months = [
     "January",
     "February",
@@ -55,9 +58,17 @@ export default function Home() {
     const tempMonthlyPlan = await getMonthlyPlan(plan);
     setMonthlyPlan(tempMonthlyPlan);
     console.log(tempMonthlyPlan);
-    // const tempWeeklyAndDailyPlan = await getWeeklyAndDaily(tempMonthlyPlan);
-    // setWeeklyPlan(tempWeeklyAndDailyPlan);
-    // console.log(tempWeeklyAndDailyPlan);
+
+    const tempFlatPlans = {};
+    for (const [quarter, months] of Object.entries(tempMonthlyPlan)) {
+      for (const [month, details] of Object.entries(months)) {
+        tempFlatPlans[month] = details;
+      }
+    }
+
+    setFlatMonthlyPlans(tempFlatPlans);
+
+    console.log("flatplans", tempFlatPlans);
   }
 
   async function handleFormSubmit() {
@@ -348,11 +359,16 @@ export default function Home() {
             <button
               key={index}
               className="rounded-md bg-indigo-500 p-3 py-2 m-2 hover:bg-indigo-300 transition ease-in-out"
+              onClick={() => setSelectedMonth(month)}
             >
               {month}
             </button>
           ))}
         </div>
+        {selectedMonth && (
+          <MonthlyPlan month={selectedMonth} data={flatMonthlyPlans} />
+        )}
+        {/* <div>{console.log(flatMonthlyPlans?.["January"]?.monthly_goal)}</div> */}
       </div>
     </div>
   );

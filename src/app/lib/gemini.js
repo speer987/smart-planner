@@ -55,11 +55,14 @@ Your task is to break down each quarterly objective into:
         - Each weekly goal should then be broken down into:
             - Daily goals for every other day of the week, beginning on Monday (e.g., Mon, Wed, Fri, Sun)
 
+When breaking the yearly goal into quarterly goals, divide any numerical targets (like number of books, miles, lessons, etc.) so that the sum across all quarters equals the original target.
+
 Guidelines:
     Monthly goals should:
       - Not begin with the name of the month (e.g., "January: ...")
-      - Be specific, action-oriented, and appropriate for someone with no prior experience
-      - Progressively build toward the quarterly objective
+      - Be specific, action-oriented, and build progressively toward the quarterly objective
+      - Distribute the numerical target of the quarterly goal evenly (or logically) across the three months in that quarter (e.g., if the quarterly objective is "Read 5 books", the monthly goals should add up to 5 books — like "Read 2 books", "Read 2 books", and "Read 1 book").
+      - Assume a full year to reach the main goal, and break it down accordingly.
 
     Weekly goals should:
       - Directly support the monthly goal
