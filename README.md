@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SmartPlanner - AI-Powered Minimalist Planner App
+A web app that helps users break down their complex yearly goals into monthly, quarterly and weekly goals.
 
-## Getting Started
+# Live Demo and more (under construction)
+This section is under construction.
 
-First, run the development server:
+# Features
+- Clean, intuitive user interface that allows users to quickly navigate when using the app.
+- AI powered text box which helps guide the user through questions about the goal and provides several quarterly plans the user can choose from.
+- Goal breakdown by month based on suggestions from the Gemini API.
+- Allows users to break down their goals into manageable bite-sized monthly tasks which prevents executive function due to the user setting an overwhelming yearly goal which seems like it cannot be broken down.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Tech Stack (under construction)
+- Frontend: React.js, Tailwind CSS, HTML, CSS
+- Backend: Gemini API, Next.js
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Project Motivation
+I built this app because I wanted to learning how I could use AI in an app that helps with goal-setting and breaking down those goals to obtain more motivation. I found that this is a fun and engaging project because I really enjoyed making a clean user interface that allows the users to navigate quickly if needed. 
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+I'm also really interested in self-development and productivity, which is why I decided that I could apply the skills that I have from previous projects to this project to make an app that solves a significant problem I have faced. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+In particular, this app was made to solve the problem of setting huge yearly goals that people struggle to break down into quarterly, monthly, and weekly goals. I think this problem prevents people from following through with their yearly goals, which is why I decided to make this app. 
 
-## Learn More
+I also integrated Gemini API so that it can apply to various goals instead of hardcoding a couple of goals which would limit the app's usability. By integrating the Gemini API, I was able to make a seamless experience for the user because the AI returns new content based on the users choices.
 
-To learn more about Next.js, take a look at the following resources:
+Although this app is great for those who are neurotypical, this app also supports neurodivergent users who face executive dysfunction and struggle with goal-setting and committing to those goals because of overwhelm.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# What I learned
+- How to integrate the Gemini API into web apps.
+- How to prompt the Gemini API to make sure that the output is in a format that I can parse when integrating it into my code.
+- Integrating features from Tailwind CSS that I have not used as much before such as the z-index, and hover states.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Future improvements (under construction)
+This section is under construction.
