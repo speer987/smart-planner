@@ -31,4 +31,7 @@ Although this app is great for those who are neurotypical, this app also support
 - Integrating features from Tailwind CSS that I have not used as much before such as the z-index, and hover states.
 
 ### Future improvements (under construction)
-This section is under construction.
+This project is still under construction, so here are some of the features I hope to include (depends on how finished I hope to make this project):
+- Local storage or a database that saves a users goal selections.
+- Local storage or a database that saves the yearly, monthly, quarterly, and weekly goals for each goal that the user decides to save, in case they would like to save more than one goal.
+- In the code: refactor code so that it is cleaner and also uses custom made React components.
