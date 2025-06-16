@@ -1,20 +1,20 @@
 # SmartPlanner - AI-Powered Minimalist Planner App
 A web app that helps users break down their complex yearly goals into monthly, quarterly and weekly goals.
 
-# Live Demo and more (under construction)
+### Live Demo and more (under construction)
 This section is under construction.
 
-# Features
+### Features
 - Clean, intuitive user interface that allows users to quickly navigate when using the app.
 - AI powered text box which helps guide the user through questions about the goal and provides several quarterly plans the user can choose from.
 - Goal breakdown by month based on suggestions from the Gemini API.
 - Allows users to break down their goals into manageable bite-sized monthly tasks which prevents executive function due to the user setting an overwhelming yearly goal which seems like it cannot be broken down.
 
-# Tech Stack (under construction)
+### Tech Stack (under construction)
 - Frontend: React.js, Tailwind CSS, HTML, CSS
 - Backend: Gemini API, Next.js
 
-# Project Motivation
+### Project Motivation
 I built this app because I wanted to learning how I could use AI in an app that helps with goal-setting and breaking down those goals to obtain more motivation. I found that this is a fun and engaging project because I really enjoyed making a clean user interface that allows the users to navigate quickly if needed. 
 
 I'm also really interested in self-development and productivity, which is why I decided that I could apply the skills that I have from previous projects to this project to make an app that solves a significant problem I have faced. 
@@ -25,10 +25,10 @@ I also integrated Gemini API so that it can apply to various goals instead of ha
 
 Although this app is great for those who are neurotypical, this app also supports neurodivergent users who face executive dysfunction and struggle with goal-setting and committing to those goals because of overwhelm.
 
-# What I learned
+### What I learned
 - How to integrate the Gemini API into web apps.
 - How to prompt the Gemini API to make sure that the output is in a format that I can parse when integrating it into my code.
 - Integrating features from Tailwind CSS that I have not used as much before such as the z-index, and hover states.
 
-# Future improvements (under construction)
+### Future improvements (under construction)
 This section is under construction.
