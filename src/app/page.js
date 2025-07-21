@@ -32,7 +32,7 @@ export default function Home() {
   const [monthlyPlan, setMonthlyPlan] = useState([]);
   const [weeklyPlan, setWeeklyPlan] = useState();
   const [flatMonthlyPlans, setFlatMonthlyPlans] = useState();
-  const [selectedMonth, setSelectedMonth] = useState();
+  const [selectedMonth, setSelectedMonth] = useState("January");
   const months = [
     "January",
     "February",
