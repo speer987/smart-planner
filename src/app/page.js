@@ -15,6 +15,8 @@ import MagicButton from "./components/MagicButton";
 import SurpriseButton from "./components/SurpriseButton";
 import SuggestionsBlock from "./components/SuggestionsBlock";
 import Svg from "./components/Svg";
+import PageTitle from "./components/PageTitle";
+import UserQuestions from "./components/UserQuestions";
 
 export default function Home() {
   const [goalsSuggestions, setGoalSuggestions] = useState([]);
@@ -166,33 +168,25 @@ export default function Home() {
       <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25  border-2">
         <div className="flex flex-col relative z-20 gap-0 w-5/6">
           <div>
-            <h1 className="text-3xl font-black">
-              Let's learn more about your goal.
-            </h1>
+            <PageTitle text={"Let's learn more about your goal."} />
             <div className="text-lg flex flex-row gap-1">
               <p className="uppercase tracking-wide font-bold">Goal:</p>
               <p>{submit}</p>
             </div>
           </div>
-          <div>
-            {questions?.map((question, index) => (
-              <div className="flex flex-col gap-1 py-2" key={index}>
-                <label className="text-lg">{question}</label>
-                <textarea
-                  value={qAnswers[index]}
-                  onChange={(e) => handleTextAreaChange(index, e.target.value)}
-                  className="resize-y bg-white rounded-md p-2 text-base"
-                  type="text"
-                />
-              </div>
-            ))}
-          </div>
-          <button
+          <UserQuestions
+            questionList={questions}
+            onChange={(e) => handleTextAreaChange(index, e.target.value)}
+            value={qAnswers}
+            onClick={handleFormSubmit}
+          />
+
+          {/* <button
             onClick={handleFormSubmit}
             className="rounded-md bg-indigo-900 text-white tracking-wide uppercase p-2 mt-2 float-right hover:bg-indigo-600 transition ease-in-out"
           >
             Submit
-          </button>
+          </button> */}
         </div>
         <svg
           className="absolute bottom-0 w-full z-10"
@@ -252,7 +246,7 @@ export default function Home() {
           ></path>
         </svg>
       </div>
-      <div className="relative z-0 bg-indigo-400 h-screen w-screen p-20 flex flex-col gap-5 justify-center items-center font-dm">
+      <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm">
         <p className="font-black text-3xl">
           Now, let's see your monthly goals based on the quarterly plan you
           chose!
@@ -292,25 +286,33 @@ export default function Home() {
         </svg>
       </div>
 
-      <div className="relative z-0 bg-indigo-600 h-screen w-screen p-20 flex flex-col gap-5 justify-center items-center font-dm border-2 text-white">
+      <div className="relative z-0 bg-indigo-600 min-h-screen w-full p-20 flex flex-col gap-5 justify-start items-center font-dm text-white">
         <p className="font-black  text-3xl">
           Now, let's see your weekly and daily goals.
         </p>
-        <div className="text-lg">
-          {months.map((month, index) => (
-            <button
-              key={index}
-              className="rounded-md bg-indigo-500 p-3 py-2 m-2 hover:bg-indigo-300 transition ease-in-out"
-              onClick={() => setSelectedMonth(month)}
-            >
-              {month}
-            </button>
-          ))}
+        <div className="w-full">
+          <div className="text-lg flex flex-row gap-1">
+            {months.map((month, index) => (
+              <button
+                key={index}
+                className={`
+                  flex-1 rounded-tr-md rounded-tl-md p-3 py-2 mt-2 transition ease-in-out
+                  ${
+                    selectedMonth === month
+                      ? "bg-white text-indigo-700"
+                      : "bg-indigo-500 text-white hover:bg-indigo-300"
+                  }
+                `}
+                onClick={() => setSelectedMonth(month)}
+              >
+                {month}
+              </button>
+            ))}
+          </div>
+          {selectedMonth && (
+            <MonthlyPlan month={selectedMonth} data={flatMonthlyPlans} />
+          )}
         </div>
-        {selectedMonth && (
-          <MonthlyPlan month={selectedMonth} data={flatMonthlyPlans} />
-        )}
-        {/* <div>{console.log(flatMonthlyPlans?.["January"]?.monthly_goal)}</div> */}
       </div>
     </div>
   );
