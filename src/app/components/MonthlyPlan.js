@@ -3,6 +3,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
+import Calendar from "./Calendar";
 
 export default function MonthlyPlan({ month, data }) {
   const monthData = data?.[month];
