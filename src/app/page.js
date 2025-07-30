@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { ClipLoader } from "react-spinners";
 import {
   clarifyGoal,
   generateGoalSuggestions,
@@ -126,15 +127,9 @@ export default function Home() {
 
   const handleSubmit = () => {
     setSubmit(input);
+    pageOneRef.current.scrollIntoView({ behavior: "smooth" });
     getQuestions(input).then(() => setRender(true));
   };
-
-  // I haven't used Refs before, so I needed to useChatGPT for this.
-  useEffect(() => {
-    if (render && pageOneRef.current) {
-      pageOneRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [render]);
 
   useEffect(() => {
     if (render1 && pageTwoRef.current) {
@@ -200,49 +195,57 @@ export default function Home() {
           }
         />
       </div>
-      {render ? (
-        <div
-          ref={pageOneRef}
-          className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25  border-2"
-        >
-          <div className="flex flex-col relative z-20 gap-0 w-5/6">
-            <div>
-              <PageTitle text={"Let's learn more about your goal."} />
-              <div className="text-lg flex flex-row gap-1">
-                <p className="uppercase tracking-wide font-bold">Goal:</p>
-                <p>{submit}</p>
+      <div ref={pageOneRef}>
+        {render ? (
+          <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25  border-2">
+            <div className="flex flex-col relative z-20 gap-0 w-5/6">
+              <div>
+                <PageTitle text={"Let's learn more about your goal."} />
+                <div className="text-lg flex flex-row gap-1">
+                  <p className="uppercase tracking-wide font-bold">Goal:</p>
+                  <p>{submit}</p>
+                </div>
               </div>
+              <UserQuestions
+                questionList={questions}
+                onChange={(e) => handleTextAreaChange(index, e.target.value)}
+                value={qAnswers}
+                onClick={handleFormSubmit}
+              />
             </div>
-            <UserQuestions
-              questionList={questions}
-              onChange={(e) => handleTextAreaChange(index, e.target.value)}
-              value={qAnswers}
-              onClick={handleFormSubmit}
-            />
-
-            {/* <button
-            onClick={handleFormSubmit}
-            className="rounded-md bg-indigo-900 text-white tracking-wide uppercase p-2 mt-2 float-right hover:bg-indigo-600 transition ease-in-out"
-          >
-            Submit
-          </button> */}
+            <svg
+              className="absolute bottom-0 w-full z-10"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1440 320"
+            >
+              <path
+                fill="#c6d2ff"
+                fillOpacity="1"
+                d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+              ></path>
+            </svg>
           </div>
-          <svg
-            className="absolute bottom-0 w-full z-10"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-          >
-            <path
-              fill="#c6d2ff"
-              fillOpacity="1"
-              d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
-          </svg>
-        </div>
-      ) : (
-        ""
-      )}
-
+        ) : (
+          <div>
+            {submit ? (
+              <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25  border-2">
+                <ClipLoader />
+                <svg
+                  className="absolute bottom-0 w-full z-10"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 1440 320"
+                >
+                  <path
+                    fill="#c6d2ff"
+                    fillOpacity="1"
+                    d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                  ></path>
+                </svg>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
       {render1 ? (
         <div
           ref={pageTwoRef}
