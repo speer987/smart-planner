@@ -9,7 +9,7 @@ import {
   suggestSmartGoals,
   getMonthlyPlan,
   getWeeklyAndDaily,
-} from "./lib/gemini";
+} from "./lib/mockAPI";
 import MonthlyPlan from "./components/MonthlyPlan";
 import Input from "./components/Input";
 import MagicButton from "./components/MagicButton";
@@ -27,6 +27,7 @@ export default function Home() {
   const [smartGoalList, setSmartGoalList] = useState([]);
   const [submit, setSubmit] = useState("");
   const [submit1, setSubmit1] = useState(false);
+  const [submit2, setSubmit2] = useState(false);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -72,6 +73,7 @@ export default function Home() {
   };
 
   async function handleSelectedQPlan(plan, days) {
+    setSubmit2(true);
     console.log(plan);
     setSelectedQPlan(plan);
 
@@ -89,6 +91,8 @@ export default function Home() {
       setFlatMonthlyPlans(tempFlatPlans);
       console.log("flatplans", tempFlatPlans);
     });
+
+    setSelectedMonth("January");
   }
 
   const handleFormSubmit = () => {
@@ -129,23 +133,42 @@ export default function Home() {
   }
 
   const handleSubmit = () => {
+    setRender(false);
+    setRender1(false);
+    setRender2(false);
+    setSubmit1(false);
+    setSubmit2(false);
+
+    setQuarterlyPlans([]);
+    setMonthlyPlan({});
+    setFlatMonthlyPlans({});
+    setSelectedQPlan(null);
+    setSelectedMonth(null);
+
     setSubmit(input);
-    pageOneRef.current.scrollIntoView({ behavior: "smooth" });
+    // pageOneRef.current.scrollIntoView({ behavior: "smooth" });
     getQuestions(input).then(() => setRender(true));
   };
 
   useEffect(() => {
-    if (render1 && pageTwoRef.current) {
+    if (submit && pageOneRef.current) {
+      pageOneRef.current.scrollIntoView({ behavior: "smooth" });
+      // handleSelectedQPlan(input).then(() => setRender1(true));
+    }
+  }, [submit]);
+
+  useEffect(() => {
+    if (submit1 && pageTwoRef.current) {
       pageTwoRef.current.scrollIntoView({ behavior: "smooth" });
       // handleSelectedQPlan(input).then(() => setRender1(true));
     }
-  }, [render1]);
+  }, [submit1]);
 
   useEffect(() => {
-    if (render2 && pageThreeRef.current) {
+    if (submit2 && pageThreeRef.current) {
       pageThreeRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [render2]);
+  }, [submit2]);
 
   useEffect(() => {
     handleGeneration();
@@ -153,7 +176,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="h-screen relative z-0 border-2">
+      <div className="h-screen relative z-0">
         <div className="flex items-start pt-25 justify-center gap-25 ">
           <div className="flex flex-col font-dm gap-2">
             <h1 className="text-4xl font-black text-indigo-900">
@@ -201,7 +224,7 @@ export default function Home() {
       </div>
       <div ref={pageOneRef}>
         {render ? (
-          <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25  border-2">
+          <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
             <div className="flex flex-col relative z-20 gap-0 w-5/6">
               <div>
                 <PageTitle text={"Let's learn more about your goal."} />
@@ -232,7 +255,7 @@ export default function Home() {
         ) : (
           <div>
             {submit ? (
-              <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25  border-2">
+              <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
                 <ClipLoader />
                 <svg
                   className="absolute bottom-0 w-full z-10"
@@ -252,7 +275,7 @@ export default function Home() {
       </div>
       <div ref={pageTwoRef}>
         {render1 ? (
-          <div className="relative z-0 bg-indigo-200 h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm border-2">
+          <div className="relative z-0 bg-indigo-200 h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm">
             <div className="flex flex-col justify-center items-center text-center">
               <p className="font-black text-3xl">
                 Now, let's break your goal down into quarterly goals!
@@ -300,7 +323,7 @@ export default function Home() {
         ) : (
           <div>
             {submit1 ? (
-              <div className="relative z-0 bg-indigo-200 h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm border-2">
+              <div className="relative z-0 bg-indigo-200 h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm">
                 <ClipLoader />
                 <svg
                   className="absolute bottom-0 w-full z-10"
@@ -318,62 +341,59 @@ export default function Home() {
           </div>
         )}
       </div>
-
-      {render2 ? (
-        <div>
-          <div
-            ref={pageThreeRef}
-            className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm"
-          >
-            <p className="font-black text-3xl">
-              Now, let's see your monthly goals based on the quarterly plan you
-              chose!
-            </p>
-            <div className="relative z-20 flex flex-col gap-1 h-full">
-              {Object.entries(monthlyPlan).map(([quarter, months], index) => (
-                <div className="flex flex-row h-1/4 items-center" key={index}>
-                  <div className="absolute z-10 flex justify-center items-center font-black rounded-full bg-indigo-900 border-1 border-indigo-500 text-white w-12 h-12">
-                    {quarter}
+      <div ref={pageThreeRef}>
+        {render2 ? (
+          <div>
+            <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm">
+              <p className="font-black text-3xl">
+                Now, let's see your monthly goals based on the quarterly plan
+                you chose!
+              </p>
+              <div className="relative z-20 flex flex-col gap-1 h-full">
+                {Object.entries(monthlyPlan).map(([quarter, months], index) => (
+                  <div className="flex flex-row h-1/4 items-center" key={index}>
+                    <div className="absolute z-10 flex justify-center items-center font-black rounded-full bg-indigo-900 border-1 border-indigo-500 text-white w-12 h-12">
+                      {quarter}
+                    </div>
+                    <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500 w-full h-full">
+                      {Object.entries(months).map(([month, details], index) => (
+                        <div key={index} className="w-1/3 flex">
+                          <ul className="rounded-md bg-white p-3 w-full">
+                            <p className="text-sm tracking-wider uppercase">
+                              {month}
+                            </p>
+                            <li>{details.monthly_goal}</li>
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500 w-full h-full">
-                    {Object.entries(months).map(([month, details], index) => (
-                      <div key={index} className="w-1/3 flex">
-                        <ul className="rounded-md bg-white p-3 w-full">
-                          <p className="text-sm tracking-wider uppercase">
-                            {month}
-                          </p>
-                          <li>{details.monthly_goal}</li>
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              {/* svg goes here */}
+              <svg
+                className="absolute bottom-0 w-full z-10"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+              >
+                <path
+                  fill="#4f39f6"
+                  fillOpacity="1"
+                  d="M0,224L48,208C96,192,192,160,288,160C384,160,480,192,576,181.3C672,171,768,117,864,112C960,107,1056,149,1152,181.3C1248,213,1344,235,1392,245.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                ></path>
+              </svg>
             </div>
-            {/* svg goes here */}
-            <svg
-              className="absolute bottom-0 w-full z-10"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1440 320"
-            >
-              <path
-                fill="#4f39f6"
-                fillOpacity="1"
-                d="M0,224L48,208C96,192,192,160,288,160C384,160,480,192,576,181.3C672,171,768,117,864,112C960,107,1056,149,1152,181.3C1248,213,1344,235,1392,245.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-              ></path>
-            </svg>
-          </div>
-          <div className="relative z-0 bg-indigo-600 min-h-screen w-full p-20 flex flex-col gap-5 justify-start items-center font-dm text-white">
-            <p className="font-black  text-3xl">
-              Now, let's see your weekly and daily goals.
-            </p>
-            {/* <OverviewTabs selectedView={selectedView} onChange={setSelectedView} /> */}
-            <div className="w-full">
-              <div className="text-lg flex flex-row gap-1">
-                {months.map((month, index) => (
-                  <button
-                    key={index}
-                    className={`
+            <div className="relative z-0 bg-indigo-600 min-h-screen w-full p-20 flex flex-col gap-5 justify-start items-center font-dm text-white">
+              <p className="font-black  text-3xl">
+                Now, let's see your weekly and daily goals.
+              </p>
+              {/* <OverviewTabs selectedView={selectedView} onChange={setSelectedView} /> */}
+              <div className="w-full">
+                <div className="text-lg flex flex-row gap-1">
+                  {months.map((month, index) => (
+                    <button
+                      key={index}
+                      className={`
                   flex-1 rounded-tr-md rounded-tl-md p-3 py-2 mt-2 transition ease-in-out
                   ${
                     selectedMonth === month
@@ -381,19 +401,37 @@ export default function Home() {
                       : "bg-indigo-500 text-white hover:bg-indigo-300"
                   }
                 `}
-                    onClick={() => setSelectedMonth(month)}
-                  >
-                    {month}
-                  </button>
-                ))}
+                      onClick={() => setSelectedMonth(month)}
+                    >
+                      {month}
+                    </button>
+                  ))}
+                </div>
+                <MonthlyPlan month={selectedMonth} data={flatMonthlyPlans} />
               </div>
-              <MonthlyPlan month={selectedMonth} data={flatMonthlyPlans} />
             </div>
           </div>
-        </div>
-      ) : (
-        ""
-      )}
+        ) : (
+          <div>
+            {submit2 ? (
+              <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm">
+                <ClipLoader />
+                <svg
+                  className="absolute bottom-0 w-full z-10"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 1440 320"
+                >
+                  <path
+                    fill="#4f39f6"
+                    fillOpacity="1"
+                    d="M0,224L48,208C96,192,192,160,288,160C384,160,480,192,576,181.3C672,171,768,117,864,112C960,107,1056,149,1152,181.3C1248,213,1344,235,1392,245.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                  ></path>
+                </svg>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

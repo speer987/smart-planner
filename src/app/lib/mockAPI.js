@@ -1,0 +1,119 @@
+// helper to simulate network delay
+const wait = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// --- MOCK: getWeeklyAndDaily ---
+export async function getWeeklyAndDaily(monthlyPlans) {
+  await wait();
+  // return a structure similar to what the real function returns
+  const mockData = {};
+  for (const [quarter, months] of Object.entries(monthlyPlans)) {
+    mockData[quarter] = {};
+    for (const [month, details] of Object.entries(months)) {
+      mockData[quarter][month] = {
+        monthly_goal: details.monthly_goal || `Complete ${month} goal`,
+        weekly_goals: Array.from({ length: 4 }, (_, i) => ({
+          weekly_goal: `Week ${i + 1} goal for ${month}`,
+          daily_goals: {
+            Monday: `Task for Monday W${i + 1}`,
+            Tuesday: "",
+            Wednesday: `Task for Wednesday W${i + 1}`,
+            Thursday: "",
+            Friday: `Task for Friday W${i + 1}`,
+            Saturday: "",
+            Sunday: `Rest`,
+          },
+        })),
+      };
+    }
+  }
+  return mockData;
+}
+
+// --- MOCK: getMonthlyPlan ---
+export async function getMonthlyPlan(plan) {
+  await wait();
+  const months = ["January", "February", "March"];
+  const quarters = ["Q1", "Q2", "Q3", "Q4"];
+  const mockData = {};
+  quarters.forEach((q) => {
+    mockData[q] = {};
+    months.forEach((month) => {
+      mockData[q][month] = {
+        monthly_goal: `${month} goal for ${q}`,
+        weekly_goals: Array.from({ length: 4 }, (_, i) => ({
+          weekly_goal: `Week ${i + 1} goal for ${month}`,
+          daily_goals: {
+            Monday: `Task M${i + 1}`,
+            Tuesday: "",
+            Wednesday: `Task W${i + 1}`,
+            Thursday: "",
+            Friday: `Task F${i + 1}`,
+            Saturday: "",
+            Sunday: "Rest",
+          },
+        })),
+      };
+    });
+  });
+  return mockData;
+}
+
+// --- MOCK: getMonthlyPlanOld ---
+export async function getMonthlyPlanOld(plan) {
+  await wait();
+  const quarters = ["Q1", "Q2", "Q3", "Q4"];
+  const months = ["January", "February", "March"];
+  const mockData = {};
+  quarters.forEach((q) => {
+    mockData[q] = months.map((month) => `${month}: mock monthly goal for ${q}`);
+  });
+  return mockData;
+}
+
+// --- MOCK: generateQuarterlyPlans ---
+export async function generateQuarterlyPlans(goal, userAnswers) {
+  await wait();
+  // return 4 plans, each with 4 quarter strings
+  return Array.from({ length: 4 }, (_, i) =>
+    Array.from({ length: 4 }, (__, j) => `Plan ${i + 1} - Q${j + 1} for goal`),
+  );
+}
+
+// --- MOCK: clarifyGoal ---
+export async function clarifyGoal(enteredGoal) {
+  await wait();
+  return [
+    `Why is "${enteredGoal}" important to you?`,
+    `What is your main challenge with "${enteredGoal}"?`,
+    `How would success look for "${enteredGoal}"?`,
+  ];
+}
+
+// --- MOCK: suggestSmartGoals ---
+export async function suggestSmartGoals(enteredGoal) {
+  await wait();
+  return Array.from(
+    { length: 10 },
+    (_, i) => `${enteredGoal} SMART goal ${i + 1}`,
+  );
+}
+
+// --- MOCK: generateSingleGoal ---
+export async function generateSingleGoal() {
+  await wait();
+  return "Complete 5 coding projects";
+}
+
+// --- MOCK: generateGoalSuggestions ---
+export async function generateGoalSuggestions() {
+  await wait();
+  return [
+    "Run 50 miles this month",
+    "Read 10 books this year",
+    "Launch personal blog",
+    "Save $5000 this year",
+    "Practice guitar daily",
+    "Meditate for 20 minutes",
+    "Complete a painting series",
+  ];
+}

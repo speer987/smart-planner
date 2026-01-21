@@ -44,7 +44,7 @@ export default function MonthlyPlan({ month, data }) {
                 </div>
               ) : (
                 ""
-              )
+              ),
             )}
           </DisclosurePanel>
         </Disclosure>
