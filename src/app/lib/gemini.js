@@ -7,12 +7,14 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+const modelName = "gemini-2.0-flash";
+
 export async function getWeeklyAndDaily(monthlyPlans) {
   console.log("monthly", monthlyPlans);
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `I have an dictionary where the key is the quarter, and the values are arrays of four string literals, where each string literal. This is the dictionary: ${JSON.stringify(
-      monthlyPlans
+      monthlyPlans,
     )}. For each string literal, break it down into:
     - 4 weekly goals that progress logically toward achieving the monthly objective.
     - For each week, generate 0-1 task for a day that are simple, beginner-friendly, and build up to the weekly goal. Make sure to write which day of the week it should take place.
@@ -44,7 +46,7 @@ export async function getWeeklyAndDaily(monthlyPlans) {
 
 export async function getMonthlyPlan(plan) {
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `You are given this quarterly plan that breaks a goal into 4 high-level quarterly objectives:
 "${plan}".
 
@@ -133,7 +135,7 @@ Guidelines:
 
 export async function getMonthlyPlanOld(plan) {
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `You are given this quarterly plan that breaks a goal into 4 high-level quarterly objectives: ${plan}.
 
   Your task is to break down each quarterly objective into 3 specific monthly goals — one for each month in that quarter.
@@ -172,7 +174,7 @@ export async function getMonthlyPlanOld(plan) {
 
 export async function generateQuarterlyPlans(goal, userAnswers) {
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `Based on the following goal and the user's responses, break the goal into four high-level quarterly outcomes.
     Each quarter should include one sentence about what should be accomplished during that period to make meaningful progress.
     Keep the plans focused, realistic, and build momentum over time.
@@ -211,7 +213,7 @@ export async function generateQuarterlyPlans(goal, userAnswers) {
 
 export async function clarifyGoal(enteredGoal) {
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `The user entered the following goal: "${enteredGoal}".
                 Generate 2–3 clarifying questions in a JSON array of string literals. These questions should help the user provide more detailed input to refine their goal, so it can later be broken down into specific quarterly steps. Focus on:
                 - What success looks like for them (specific outcome or result)
@@ -245,7 +247,7 @@ export async function clarifyGoal(enteredGoal) {
 
 export async function suggestSmartGoals(enteredGoal) {
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `Return a single JSON array of 10 string literals that reformat the goal "${enteredGoal}" into SMART goals—specific, measurable, achievable, relevant, and time-bound with a deadline of December ${thisYear}. Goals should not have an end date before December of ${thisYear}. Keep each SMART goal clear, concise (within 15 words), and closely tied to the original goal by adding to it rather than rephrasing it completely. Ensure each goal is broad enough to break into quarterly tasks later, but still specific enough to measure progress and define success. Return only the JSON array, with no explanation or extra text.`,
   });
   const text = response.text;
@@ -272,7 +274,7 @@ export async function suggestSmartGoals(enteredGoal) {
 
 export async function generateSingleGoal() {
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents: `Return ONLY a JSON string literal representing one unique yearly goal in the categories: health, fitness, career, education, personal finance, relationships, personal growth, creativity, travel, home, community, or spirituality that is 5-8 words long. Make sure the goal is completely different from commonly repeated ones. Do not repeat yourself. Do not include the category name or any extra text.`,
   });
   const text = response.text;
@@ -300,7 +302,7 @@ export async function generateSingleGoal() {
 export async function generateGoalSuggestions() {
   console.log("generateGoalSuggestions called");
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: modelName,
     contents:
       "Return ONLY a JSON array of exactly seven yearly goals in the categories health, fitness, career, education, personal finance, relationships, personal growth, creativity, travel, home, community, spirituality as five to seven word strings, with no markdown code blocks, no variable declarations, and no extra text—just pure JSON. Make sure each goal is in different categories every time and that it is a completely different goal each time. Don't mention which category each goal is in.",
   });
