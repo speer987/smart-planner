@@ -42,6 +42,7 @@ export default function Home() {
   const [render, setRender] = useState(false);
   const [render1, setRender1] = useState(false);
   const [render2, setRender2] = useState(false);
+  const [rateLimited, setRateLimited] = useState(false);
 
   const months = [
     "January",
@@ -109,10 +110,19 @@ export default function Home() {
   };
 
   async function handleGeneration() {
-    const goals = await generateGoalSuggestions();
-    setGoalSuggestions(goals);
-    console.log("goals", goals);
-    setLoading(false);
+    try {
+      setLoading(true);
+      setRateLimited(false);
+
+      const goals = await generateGoalSuggestions();
+      setGoalSuggestions(goals);
+    } catch (error) {
+      if (error.message == "Rate limit exceeded. Please try again later.") {
+        setRateLimited(true);
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleSingleGoal() {
@@ -178,36 +188,45 @@ export default function Home() {
     <div>
       <div className="h-screen relative z-0">
         <div className="flex items-start pt-25 justify-center gap-25 ">
-          <div className="flex flex-col font-dm gap-2">
+          <div className="flex flex-col font-dm">
             <h1 className="text-4xl font-black text-indigo-900">
               SmartPlanner
             </h1>
-            <p className="text-lg">
-              What's a goal you would like to achieve one year from now?
-            </p>
-            <div className="flex flex-col">
-              <div className="flex">
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                />
-                <MagicButton onClick={handleSubmit} />
+            {!rateLimited ? (
+              <div className="z-20 flex flex-col font-dm gap-2">
+                <p className="text-lg">
+                  What's a goal you would like to achieve one year from now?
+                </p>
+                <div className="flex flex-col">
+                  <div className="flex">
+                    <Input
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                    />
+                    <MagicButton onClick={handleSubmit} />
+                  </div>
+                  <div className="flex flex-row gap-1">
+                    <p className="text-sm">Not your style?</p>
+                    <SurpriseButton onClick={handleSingleGoal} />
+                  </div>
+                </div>
+                <div className="flex flex-col bg-gray-50 rounded-md border-1 border-gray-200 p-5 gap-5">
+                  <div className="flex flex-col gap-2">
+                    <SuggestionsBlock
+                      onClick={handleGeneration}
+                      goalList={goalsSuggestions}
+                      loadState={loading}
+                      setInput={setInput}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-row gap-1">
-                <p className="text-sm">Not your style?</p>
-                <SurpriseButton onClick={handleSingleGoal} />
-              </div>
-            </div>
-            <div className="z-20 flex flex-col bg-gray-50 rounded-md border-1 border-gray-200 p-5 gap-5">
-              <div className="flex flex-col gap-2">
-                <SuggestionsBlock
-                  onClick={handleGeneration}
-                  goalList={goalsSuggestions}
-                  loadState={loading}
-                  setInput={setInput}
-                />
-              </div>
-            </div>
+            ) : (
+              <p>
+                This app has reached the rate limit for the Gemini API. Please
+                try again later.
+              </p>
+            )}
           </div>
           <img
             src="undraw_brainstorming_gny9.svg"
