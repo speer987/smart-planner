@@ -18,8 +18,6 @@ import SuggestionsBlock from "./components/SuggestionsBlock";
 import Svg from "./components/Svg";
 import PageTitle from "./components/PageTitle";
 import UserQuestions from "./components/UserQuestions";
-import OverviewTabs from "./components/OverviewTabs";
-import Calendar from "./components/Calendar";
 import Disclaimer from "./components/Disclaimer";
 import MonthlyBreakdown from "./components/MonthlyBreakdown";
 
@@ -37,10 +35,8 @@ export default function Home() {
   const [quarterlyPlans, setQuarterlyPlans] = useState([]);
   const [selectedQPlan, setSelectedQPlan] = useState([]);
   const [monthlyPlan, setMonthlyPlan] = useState([]);
-  const [weeklyPlan, setWeeklyPlan] = useState();
   const [flatMonthlyPlans, setFlatMonthlyPlans] = useState();
   const [selectedMonth, setSelectedMonth] = useState("January");
-  const [selectedView, setSelectedView] = useState("list");
   const [render, setRender] = useState(false);
   const [render1, setRender1] = useState(false);
   const [render2, setRender2] = useState(false);
@@ -68,11 +64,6 @@ export default function Home() {
     const newAnswers = [...qAnswers];
     newAnswers[index] = value;
     setQAnswers(newAnswers);
-  };
-
-  const destructureGoal = (goal) => {
-    const [month, goalText] = goal.split(":");
-    return [month, goalText];
   };
 
   async function handleSelectedQPlan(plan, days) {
@@ -134,11 +125,6 @@ export default function Home() {
     setInput(singleGoal);
   }
 
-  async function getSmartGoals(input) {
-    const smartGoals = await suggestSmartGoals(input);
-    setSmartGoalList(smartGoals);
-  }
-
   async function getQuestions(input) {
     const questions = await clarifyGoal(input);
     setQuestions(questions);
@@ -158,21 +144,18 @@ export default function Home() {
     setSelectedMonth(null);
 
     setSubmit(input);
-    // pageOneRef.current.scrollIntoView({ behavior: "smooth" });
     getQuestions(input).then(() => setRender(true));
   };
 
   useEffect(() => {
     if (submit && pageOneRef.current) {
       pageOneRef.current.scrollIntoView({ behavior: "smooth" });
-      // handleSelectedQPlan(input).then(() => setRender1(true));
     }
   }, [submit]);
 
   useEffect(() => {
     if (submit1 && pageTwoRef.current) {
       pageTwoRef.current.scrollIntoView({ behavior: "smooth" });
-      // handleSelectedQPlan(input).then(() => setRender1(true));
     }
   }, [submit1]);
 
@@ -395,7 +378,6 @@ export default function Home() {
               <p className="font-black  text-3xl">
                 Now, let's see your weekly and daily goals.
               </p>
-              {/* <OverviewTabs selectedView={selectedView} onChange={setSelectedView} /> */}
               <div className="w-full">
                 <div className="text-lg flex flex-row gap-1">
                   {months.map((month, index) => (
