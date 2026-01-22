@@ -9,7 +9,7 @@ import {
   suggestSmartGoals,
   getMonthlyPlan,
   getWeeklyAndDaily,
-} from "./lib/mockAPI";
+} from "./lib/gemini";
 import MonthlyPlan from "./components/MonthlyPlan";
 import Input from "./components/Input";
 import MagicButton from "./components/MagicButton";
@@ -20,6 +20,8 @@ import PageTitle from "./components/PageTitle";
 import UserQuestions from "./components/UserQuestions";
 import OverviewTabs from "./components/OverviewTabs";
 import Calendar from "./components/Calendar";
+import Disclaimer from "./components/Disclaimer";
+import MonthlyBreakdown from "./components/MonthlyBreakdown";
 
 export default function Home() {
   const [goalsSuggestions, setGoalSuggestions] = useState([]);
@@ -228,6 +230,7 @@ export default function Home() {
               </p>
             )}
           </div>
+
           <img
             src="undraw_brainstorming_gny9.svg"
             alt="Illustration"
@@ -240,7 +243,9 @@ export default function Home() {
             "M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           }
         />
+        <Disclaimer />
       </div>
+
       <div ref={pageOneRef}>
         {render ? (
           <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
@@ -270,11 +275,12 @@ export default function Home() {
                 d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
               ></path>
             </svg>
+            <Disclaimer />
           </div>
         ) : (
           <div>
             {submit ? (
-              <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
+              <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-center py-25">
                 <ClipLoader />
                 <svg
                   className="absolute bottom-0 w-full z-10"
@@ -338,6 +344,7 @@ export default function Home() {
                 d="M0,160L48,149.3C96,139,192,117,288,144C384,171,480,245,576,277.3C672,309,768,299,864,272C960,245,1056,203,1152,197.3C1248,192,1344,224,1392,240L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
               ></path>
             </svg>
+            <Disclaimer />
           </div>
         ) : (
           <div>
@@ -363,32 +370,12 @@ export default function Home() {
       <div ref={pageThreeRef}>
         {render2 ? (
           <div>
-            <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm">
+            <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm text-white">
               <p className="font-black text-3xl">
                 Now, let's see your monthly goals based on the quarterly plan
                 you chose!
               </p>
-              <div className="relative z-20 flex flex-col gap-1 h-full">
-                {Object.entries(monthlyPlan).map(([quarter, months], index) => (
-                  <div className="flex flex-row h-1/4 items-center" key={index}>
-                    <div className="absolute z-10 flex justify-center items-center font-black rounded-full bg-indigo-900 border-1 border-indigo-500 text-white w-12 h-12">
-                      {quarter}
-                    </div>
-                    <div className="flex flex-row rounded-md p-1 gap-2 relative z-0 ml-6 pl-8 border-1 border-indigo-500 w-full h-full">
-                      {Object.entries(months).map(([month, details], index) => (
-                        <div key={index} className="w-1/3 flex">
-                          <ul className="rounded-md bg-white p-3 w-full">
-                            <p className="text-sm tracking-wider uppercase">
-                              {month}
-                            </p>
-                            <li>{details.monthly_goal}</li>
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <MonthlyBreakdown monthlyPlan={monthlyPlan} />
               {/* svg goes here */}
               <svg
                 className="absolute bottom-0 w-full z-10"
@@ -401,6 +388,8 @@ export default function Home() {
                   d="M0,224L48,208C96,192,192,160,288,160C384,160,480,192,576,181.3C672,171,768,117,864,112C960,107,1056,149,1152,181.3C1248,213,1344,235,1392,245.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
                 ></path>
               </svg>
+
+              <Disclaimer />
             </div>
             <div className="relative z-0 bg-indigo-600 min-h-screen w-full p-20 flex flex-col gap-5 justify-start items-center font-dm text-white">
               <p className="font-black  text-3xl">
@@ -428,6 +417,7 @@ export default function Home() {
                 </div>
                 <MonthlyPlan month={selectedMonth} data={flatMonthlyPlans} />
               </div>
+              <Disclaimer />
             </div>
           </div>
         ) : (
