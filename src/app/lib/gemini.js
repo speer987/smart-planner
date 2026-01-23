@@ -38,11 +38,14 @@ export async function getWeeklyAndDaily(monthlyPlans) {
     console.error("Error generating weekly and daily plans:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
 
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -134,10 +137,13 @@ Guidelines:
     console.error("Error generating monthly plan:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.status === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -179,10 +185,13 @@ export async function getMonthlyPlanOld(plan) {
     console.error("Error generating monthly plan:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -224,10 +233,13 @@ export async function generateQuarterlyPlans(goal, userAnswers) {
     console.error("Error generating quarterly plans:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -263,10 +275,13 @@ export async function clarifyGoal(enteredGoal) {
     console.error("Error clarifying goal:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -295,10 +310,13 @@ export async function suggestSmartGoals(enteredGoal) {
     console.error("Error suggesting SMART goals:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -309,29 +327,22 @@ export async function generateSingleGoal() {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: `Return ONLY a JSON string literal representing one unique yearly goal in the categories: health, fitness, career, education, personal finance, relationships, personal growth, creativity, travel, home, community, or spirituality that is 5-8 words long. Make sure the goal is completely different from commonly repeated ones. Do not repeat yourself. Do not include the category name or any extra text.`,
+      contents: `Return ONE unique yearly goal as plain text in the categories: health, fitness, career, education, personal finance, relationships, personal growth, creativity, travel, home, community, or spirituality that is 5-8 words long. Make sure the goal is completely different from commonly repeated ones. Do not repeat yourself. Do not include the category name or any extra text.`,
     });
-    const text = response.text;
-    console.log(response.text);
 
-    const cleanedText = text
-      .trim()
-      // Remove opening fence with optional "json"
-      .replace(/^```json\s*\n?/, "")
-      // Remove closing fence
-      .replace(/```$/, "")
-      .trim();
-
-    const goal = JSON.parse(cleanedText);
+    const goal = response.text.trim();
     return goal;
   } catch (error) {
     console.error("Error generating single goal:", error);
 
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");
@@ -360,12 +371,14 @@ export async function generateGoalSuggestions() {
     return goals;
   } catch (error) {
     console.error("Error generating goal suggestions:", error);
-
     if (error.statusCode === 429) {
-      throw new Error("Rate limit exceeded. Please try again later.");
+      throw new Error("Rate limit exceeded.");
     }
     if (error instanceof SyntaxError) {
       throw new Error("Received bad JSON response from Gemini API.");
+    }
+    if (error.statusCode === 500) {
+      throw new Error("Gemini API server error. Please try again later.");
     }
 
     throw new Error("An unexpected error occurred.");

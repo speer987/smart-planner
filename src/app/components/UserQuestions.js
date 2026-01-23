@@ -6,9 +6,8 @@ const UserQuestions = ({ questionList, onChange, qAnswers, onClick }) => {
           <label className="text-lg">{question}</label>
           <textarea
             value={qAnswers?.[index] || ""}
-            onChange={onChange}
+            onChange={(e) => onChange(index, e.target.value)}
             className="resize-y bg-white rounded-md p-2 text-base"
-            type="text"
           />
         </div>
       ))}

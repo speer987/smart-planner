@@ -61,9 +61,11 @@ export default function Home() {
   const pageThreeRef = useRef(null);
 
   const handleTextAreaChange = (index, value) => {
-    const newAnswers = [...qAnswers];
-    newAnswers[index] = value;
-    setQAnswers(newAnswers);
+    setQAnswers((prevAnswers) => {
+      const newAnswers = [...prevAnswers];
+      newAnswers[index] = value;
+      return newAnswers;
+    });
   };
 
   async function handleSelectedQPlan(plan, days) {
@@ -110,7 +112,11 @@ export default function Home() {
       const goals = await generateGoalSuggestions();
       setGoalSuggestions(goals);
     } catch (error) {
-      if (error.message == "Rate limit exceeded. Please try again later.") {
+      console.log(error);
+      if (
+        error.message?.includes("Rate limit exceeded.") ||
+        error.message?.includes("unexpected error")
+      ) {
         setRateLimited(true);
       }
     } finally {
@@ -242,8 +248,8 @@ export default function Home() {
               </div>
               <UserQuestions
                 questionList={questions}
-                onChange={(e) => handleTextAreaChange(index, e.target.value)}
-                value={qAnswers}
+                onChange={handleTextAreaChange}
+                qAnswers={qAnswers}
                 onClick={handleFormSubmit}
               />
             </div>

@@ -53,3 +53,5 @@ Some future improvements for this app include:
 - Adding user account so that users can favorite or save plans for goals, as they may have more than one goal per year.
 - Visualize goals in a calendar view, so that it is more intuitive, perhaps allowing users to export events to their calendars.
 - Allow the users to export plans as a simplistic pdf with checkboxes that they can use to check off goals as the year progresses.
+- Make error states more concise. Right now, there is only an error check in place for the very first page where you enter a goal into the text box, so if you reach the Gemini API quota on the second, third, or fourth page, it ends up breaking.
+- Refactor code so it is less redundant in certain places.
