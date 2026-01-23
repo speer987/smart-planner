@@ -21,7 +21,9 @@ Overall, the core functionality of this app breaks goals down into quarterly, mo
 #### Tech Stack
 
 Frontend: React, Next.js, Tailwind CSS, Headless UI (for the accordions)
+
 Backend / API: Google Gemini AI, Node.js
+
 Other: ADD DEPLOYMENT INFO HERE
 
 #### Screenshots / GIF
