@@ -186,7 +186,8 @@ export default function Home() {
             {!rateLimited ? (
               <div className="z-20 flex flex-col font-dm gap-2">
                 <p className="text-lg">
-                  What's a goal you would like to achieve one year from now?
+                  What&apos;s a goal you would like to achieve one year from
+                  now?
                 </p>
                 <div className="flex flex-col">
                   <div className="flex">
