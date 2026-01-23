@@ -292,7 +292,7 @@ export default function Home() {
           <div className="relative z-0 bg-indigo-200 h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm">
             <div className="flex flex-col justify-center items-center text-center">
               <p className="font-black text-3xl">
-                Now, let's break your goal down into quarterly goals!
+                Now, let&apos;s break your goal down into quarterly goals!
               </p>
               <p className="text-lg">
                 Choose one of the following quarterly plans:
@@ -361,8 +361,8 @@ export default function Home() {
           <div>
             <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm text-white">
               <p className="font-black text-3xl">
-                Now, let's see your monthly goals based on the quarterly plan
-                you chose!
+                Now, let&apos;s see your monthly goals based on the quarterly
+                plan you chose!
               </p>
               <MonthlyBreakdown monthlyPlan={monthlyPlan} />
               {/* svg goes here */}
@@ -382,7 +382,7 @@ export default function Home() {
             </div>
             <div className="relative z-0 bg-indigo-600 min-h-screen w-full p-20 flex flex-col gap-5 justify-start items-center font-dm text-white">
               <p className="font-black  text-3xl">
-                Now, let's see your weekly and daily goals.
+                Now, let&apos;s see your weekly and daily goals.
               </p>
               <div className="w-full">
                 <div className="text-lg flex flex-row gap-1">

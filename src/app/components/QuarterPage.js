@@ -4,7 +4,7 @@ export default function QuarterPage() {
       <div className="relative z-0 bg-indigo-200 h-screen p-20 flex flex-col gap-5 justify-center items-center font-dm border-2">
         <div className="flex flex-col justify-center items-center text-center">
           <p className="font-black text-3xl">
-            Now, let's break your goal down into quarterly goals!
+            Now, let&apos;s break your goal down into quarterly goals!
           </p>
           <p className="text-lg">
             Choose one of the following quarterly plans:
@@ -44,7 +44,7 @@ export default function QuarterPage() {
       </div>
       <div className="relative z-0 bg-indigo-400 h-screen p-20 flex flex-col gap-5 justify-center items-center font-dm border-2">
         <p className="font-black text-3xl">
-          Now, let's see your monthly goals based on the quarterly plan you
+          Now, let&apos;s see your monthly goals based on the quarterly plan you
           chose!
         </p>
         <div className="relative z-20 flex flex-col gap-1">

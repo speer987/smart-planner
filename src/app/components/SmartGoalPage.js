@@ -4,7 +4,7 @@ export default function SmartGoalPage() {
       <div className="p-20 flex flex-col gap-5">
         <div>
           <h1 className="font-black text-3xl">
-            First, let's make your goal into a SMART goal!
+            First, let&apos;s make your goal into a SMART goal!
           </h1>
           <p className="font-dm text-lg">
             A SMART goal is a goal that is Specific, Measurable, Achievable,
