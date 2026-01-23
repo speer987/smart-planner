@@ -30,9 +30,9 @@ Other: ADD DEPLOYMENT INFO HERE
 
 ADD A VIDEO HERE
 
-#### Live Demo
+#### Live Demo on Vercel
 
-Try it out here: ADD LINK HERE
+Try it out here: [SmartPlanner](https://smart-planner-ai.vercel.app/)
 
 #### Challenges & What I Learned
 
@@ -53,5 +53,5 @@ Some future improvements for this app include:
 - Adding user account so that users can favorite or save plans for goals, as they may have more than one goal per year.
 - Visualize goals in a calendar view, so that it is more intuitive, perhaps allowing users to export events to their calendars.
 - Allow the users to export plans as a simplistic pdf with checkboxes that they can use to check off goals as the year progresses.
-- Make error states more concise. Right now, there is only an error check in place for the very first page where you enter a goal into the text box, so if you reach the Gemini API quota on the second, third, or fourth page, it ends up breaking.
+- Make error states more concise. Right now, there is only an error check in place for the very first page where you enter a goal into the text box, so if you reach the Gemini API quota on the second, third, or fourth page, it ends up breaking. The error checking is a bit messy, and I feel like that aspect could be improved.
 - Refactor code so it is less redundant in certain places.
