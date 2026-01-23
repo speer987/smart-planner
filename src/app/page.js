@@ -9,7 +9,7 @@ import {
   suggestSmartGoals,
   getMonthlyPlan,
   getWeeklyAndDaily,
-} from "./lib/gemini";
+} from "./api/gemini";
 import MonthlyPlan from "./components/MonthlyPlan";
 import Input from "./components/Input";
 import MagicButton from "./components/MagicButton";
@@ -110,13 +110,20 @@ export default function Home() {
       setRateLimited(false);
 
       const goals = await generateGoalSuggestions();
+      // check for empty goals array
+      if (!goals || goals.length === 0) {
+        setRateLimited(true);
+        return;
+      }
+
       setGoalSuggestions(goals);
     } catch (error) {
       console.log(error);
-      if (
-        error.message?.includes("Rate limit exceeded.") ||
-        error.message?.includes("unexpected error")
-      ) {
+      if (error.message?.includes("exceeded your current quota")) {
+        setRateLimited(true);
+      }
+
+      if (error.message?.includes("unexpected error")) {
         setRateLimited(true);
       }
     } finally {

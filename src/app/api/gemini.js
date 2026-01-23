@@ -48,7 +48,7 @@ export async function getWeeklyAndDaily(monthlyPlans) {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -146,7 +146,7 @@ Guidelines:
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -194,7 +194,7 @@ export async function getMonthlyPlanOld(plan) {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -242,7 +242,7 @@ export async function generateQuarterlyPlans(goal, userAnswers) {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -284,7 +284,7 @@ export async function clarifyGoal(enteredGoal) {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -319,7 +319,7 @@ export async function suggestSmartGoals(enteredGoal) {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -345,7 +345,7 @@ export async function generateSingleGoal() {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
 
@@ -381,6 +381,6 @@ export async function generateGoalSuggestions() {
       throw new Error("Gemini API server error. Please try again later.");
     }
 
-    throw new Error("An unexpected error occurred.");
+    return [];
   }
 }
