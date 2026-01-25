@@ -9,14 +9,17 @@ export default function MonthlyPlan({ month, data }) {
   const monthData = data?.[month];
   return (
     <div className="flex flex-col gap-2 p-5 bg-white rounded-b-md text-indigo-900">
-      <div className="flex flex-row gap-1 text-lg items-center">
-        <p className="font-bold ">Goal:</p>
-        {monthData?.monthly_goal}
+      <div className="flex flex-row gap-1 text-lg items-start">
+        <p className="font-bold flex-none">Goal:</p>
+        <p className="text-left">{monthData?.monthly_goal}</p>
       </div>
       {monthData?.weekly_goals?.map((week, index) => (
-        <Disclosure key={index}>
+        <Disclosure key={month + index}>
           <DisclosureButton className="bg-indigo-50 rounded-sm p-2 my-1 items-center flex flex-row justify-between">
-            Week {index + 1}: {week.weekly_goal}
+            <div className="flex flex-row gap-1">
+              <p className="flex-none">Week {index + 1}: </p>
+              <p className="text-left">{week.weekly_goal}</p>
+            </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

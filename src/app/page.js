@@ -41,6 +41,7 @@ export default function Home() {
   const [render1, setRender1] = useState(false);
   const [render2, setRender2] = useState(false);
   const [rateLimited, setRateLimited] = useState(false);
+  const [emptyInput, setEmptyInput] = useState(false);
 
   const months = [
     "January",
@@ -134,6 +135,7 @@ export default function Home() {
   async function handleSingleGoal() {
     const singleGoal = await generateSingleGoal();
     setSingleGoal(singleGoal);
+    setEmptyInput(false);
     console.log("goal", singleGoal);
     setInput(singleGoal);
   }
@@ -144,11 +146,18 @@ export default function Home() {
   }
 
   const handleSubmit = () => {
+    if (input === "") {
+      setEmptyInput(true);
+      return;
+    } else {
+      setEmptyInput(false);
+    }
     setRender(false);
     setRender1(false);
     setRender2(false);
     setSubmit1(false);
     setSubmit2(false);
+    setQAnswers(new Array(3).fill(""));
 
     setQuarterlyPlans([]);
     setMonthlyPlan({});
@@ -200,10 +209,22 @@ export default function Home() {
                   <div className="flex">
                     <Input
                       value={input}
-                      onChange={(e) => setInput(e.target.value)}
+                      onChange={(e) => {
+                        setInput(e.target.value);
+                        if (emptyInput !== "") {
+                          setEmptyInput(false);
+                        }
+                      }}
+                      isEmpty={emptyInput}
                     />
                     <MagicButton onClick={handleSubmit} />
                   </div>
+                  {emptyInput && (
+                    <p className="text-sm text-red-800">
+                      Please enter something in the input field before
+                      generating a plan.
+                    </p>
+                  )}
                   <div className="flex flex-row gap-1">
                     <p className="text-sm">Not your style?</p>
                     <SurpriseButton onClick={handleSingleGoal} />
@@ -215,7 +236,10 @@ export default function Home() {
                       onClick={handleGeneration}
                       goalList={goalsSuggestions}
                       loadState={loading}
-                      setInput={setInput}
+                      setInput={(text) => {
+                        setInput(text);
+                        setEmptyInput(false);
+                      }}
                     />
                   </div>
                 </div>
@@ -248,7 +272,11 @@ export default function Home() {
           <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
             <div className="flex flex-col relative z-20 gap-0 w-5/6">
               <div>
-                <PageTitle text={"Let's learn more about your goal."} />
+                <PageTitle
+                  text={
+                    "Let's learn more about your goal with some optional questions."
+                  }
+                />
                 <div className="text-lg flex flex-row gap-1">
                   <p className="uppercase tracking-wide font-bold">Goal:</p>
                   <p>{submit}</p>
@@ -297,7 +325,7 @@ export default function Home() {
       </div>
       <div ref={pageTwoRef}>
         {render1 ? (
-          <div className="relative z-0 bg-indigo-200 h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm">
+          <div className="relative z-0 bg-indigo-200 min-h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm">
             <div className="flex flex-col justify-center items-center text-center">
               <p className="font-black text-3xl">
                 Now, let&apos;s break your goal down into quarterly goals!
@@ -307,7 +335,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-4 gap-4 relative z-20 h-screen">
+            <div className="grid grid-cols-4 gap-4 relative z-20">
               {quarterlyPlans?.map((plan, index) => (
                 <div className="flex flex-col gap-1 text-center" key={index}>
                   <p className="font-black">Plan {index + 1}</p>
@@ -367,7 +395,7 @@ export default function Home() {
       <div ref={pageThreeRef}>
         {render2 ? (
           <div>
-            <div className="relative z-0 bg-indigo-400 h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm text-white">
+            <div className="relative z-0 bg-indigo-400 min-h-screen w-full p-20 flex flex-col gap-5 justify-center items-center font-dm text-white">
               <p className="font-black text-3xl">
                 Now, let&apos;s see your monthly goals based on the quarterly
                 plan you chose!

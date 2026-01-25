@@ -39,9 +39,15 @@ export async function getMonthlyPlan(plan) {
     mockData[q] = {};
     months.forEach((month) => {
       mockData[q][month] = {
-        monthly_goal: `${month} goal for ${q}`,
+        monthly_goal: `${month} goal for ${q} ${month} goal for ${q}${month} goal for ${q}${month} goal for ${q}${month} goal for ${q}${month} goal for ${q}${month} goal for ${q}${month} goal for ${q}`,
         weekly_goals: Array.from({ length: 4 }, (_, i) => ({
-          weekly_goal: `Week ${i + 1} goal for ${month}`,
+          weekly_goal: `Week ${i + 1} goal for ${month}Week ${
+            i + 1
+          } goal for ${month}Week ${i + 1} goal for ${month}Week ${
+            i + 1
+          } goal for ${month}Week ${i + 1} goal for ${month}Week ${
+            i + 1
+          } goal for ${month}Week ${i + 1} goal for ${month}`,
           daily_goals: {
             Monday: `Task M${i + 1}`,
             Tuesday: "",
@@ -75,7 +81,23 @@ export async function generateQuarterlyPlans(goal, userAnswers) {
   await wait();
   // return 4 plans, each with 4 quarter strings
   return Array.from({ length: 4 }, (_, i) =>
-    Array.from({ length: 4 }, (__, j) => `Plan ${i + 1} - Q${j + 1} for goal`),
+    Array.from(
+      { length: 4 },
+      (__, j) =>
+        `Plan ${i + 1} - Q${j + 1} for goalPlan ${i + 1} - Q${
+          j + 1
+        } for goalPlan ${i + 1} - Q${j + 1} for goalPlan ${i + 1} - Q${
+          j + 1
+        } for goalPlan ${i + 1} - Q${j + 1} for goalPlan ${i + 1} - Q${
+          j + 1
+        } for goalPlan ${i + 1} - Q${j + 1} for goalPlan ${i + 1} - Q${
+          j + 1
+        } for goalPlan ${i + 1} - Q${j + 1} for goalPlan ${i + 1} - Q${
+          j + 1
+        } for goalPlan ${i + 1} - Q${j + 1} for goalPlan ${i + 1} - Q${
+          j + 1
+        } for goal`,
+    ),
   );
 }
 
