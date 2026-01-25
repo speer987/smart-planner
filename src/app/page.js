@@ -9,7 +9,7 @@ import {
   suggestSmartGoals,
   getMonthlyPlan,
   getWeeklyAndDaily,
-} from "./api/gemini";
+} from "./api/mockAPI";
 import MonthlyPlan from "./components/MonthlyPlan";
 import Input from "./components/Input";
 import MagicButton from "./components/MagicButton";
@@ -267,62 +267,65 @@ export default function Home() {
         <Disclaimer />
       </div>
 
-      <div ref={pageOneRef}>
-        {render ? (
-          <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
-            <div className="flex flex-col relative z-20 gap-0 w-5/6">
-              <div>
-                <PageTitle
-                  text={
-                    "Let's learn more about your goal with some optional questions."
-                  }
-                />
-                <div className="text-lg flex flex-row gap-1">
-                  <p className="uppercase tracking-wide font-bold">Goal:</p>
-                  <p>{submit}</p>
+      {!emptyInput && (
+        <div ref={pageOneRef}>
+          {render ? (
+            <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-start py-25">
+              <div className="flex flex-col relative z-20 gap-0 w-5/6">
+                <div>
+                  <PageTitle
+                    text={
+                      "Let's learn more about your goal with some optional questions."
+                    }
+                  />
+                  <div className="text-lg flex flex-row gap-1">
+                    <p className="uppercase tracking-wide font-bold">Goal:</p>
+                    <p>{submit}</p>
+                  </div>
                 </div>
+                <UserQuestions
+                  questionList={questions}
+                  onChange={handleTextAreaChange}
+                  qAnswers={qAnswers}
+                  onClick={handleFormSubmit}
+                />
               </div>
-              <UserQuestions
-                questionList={questions}
-                onChange={handleTextAreaChange}
-                qAnswers={qAnswers}
-                onClick={handleFormSubmit}
-              />
+              <svg
+                className="absolute bottom-0 w-full z-10"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+              >
+                <path
+                  fill="#c6d2ff"
+                  fillOpacity="1"
+                  d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                ></path>
+              </svg>
+              <Disclaimer />
             </div>
-            <svg
-              className="absolute bottom-0 w-full z-10"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1440 320"
-            >
-              <path
-                fill="#c6d2ff"
-                fillOpacity="1"
-                d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-              ></path>
-            </svg>
-            <Disclaimer />
-          </div>
-        ) : (
-          <div>
-            {submit ? (
-              <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-center py-25">
-                <ClipLoader />
-                <svg
-                  className="absolute bottom-0 w-full z-10"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1440 320"
-                >
-                  <path
-                    fill="#c6d2ff"
-                    fillOpacity="1"
-                    d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                  ></path>
-                </svg>
-              </div>
-            ) : null}
-          </div>
-        )}
-      </div>
+          ) : (
+            <div>
+              {submit ? (
+                <div className="bg-indigo-50 z-0 min-h-screen relative font-dm flex justify-center items-center py-25">
+                  <ClipLoader />
+                  <svg
+                    className="absolute bottom-0 w-full z-10"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1440 320"
+                  >
+                    <path
+                      fill="#c6d2ff"
+                      fillOpacity="1"
+                      d="M0,96L48,112C96,128,192,160,288,197.3C384,235,480,277,576,277.3C672,277,768,235,864,192C960,149,1056,107,1152,80C1248,53,1344,43,1392,37.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                    ></path>
+                  </svg>
+                </div>
+              ) : null}
+            </div>
+          )}
+        </div>
+      )}
+
       <div ref={pageTwoRef}>
         {render1 ? (
           <div className="relative z-0 bg-indigo-200 min-h-screen p-20 py-15 flex flex-col gap-5 justify-center items-center font-dm">
