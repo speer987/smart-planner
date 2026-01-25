@@ -26,13 +26,17 @@ Backend / API: Google Gemini AI, Node.js
 
 Other: Vercel (Web App Deployment)
 
-#### Screenshots / GIF
+#### Demo Video
 
-ADD A VIDEO HERE
+You can watch the demo video by clicking the image below!
+
+[![Demo Video](demo_screenshot.png)](https://drive.google.com/file/d/1Zwk6TftsfLYmrtYiQYfg3lJaYwGoaRPN/view?usp=sharing)
 
 #### Live Demo on Vercel
 
 Try it out here: [SmartPlanner](https://smart-planner-ai.vercel.app/)
+
+Note: Although I have included error checking for when the app hits the Gemini API request quota, the app sometimes does not display the error message and continues with some broken functionality. If this happens when using the app, you might prefer to watch the demo instead.
 
 #### Challenges & What I Learned
 
