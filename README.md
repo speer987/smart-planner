@@ -28,7 +28,7 @@ Other: Vercel (Web App Deployment)
 
 #### Screenshots
 
-<div style="display: flex; flex-direction: column">
+<div style="display: flex; flex-direction: column; border: 2px solid red;">
     <div>
         <p>Page 1</p>
         <img src="images/page_1.png">
