@@ -28,7 +28,7 @@ Other: Vercel (Web App Deployment)
 
 #### Screenshots
 
-Page # | Screenshot                          | Description |
+Pg # | Screenshot                          | Description |
 | ------------------------------ | ------------ | ------------ |
 1 |<img src="images/page_1.png">  | Users can enter their goal in the text area and submit, or choose from the suggested goals. They can refresh the suggested items by clicking the circular arrow symbol next to the word "Suggestions". They can also generate a single goal using the "Surprise Me" link underneath the text area.
 2 |<img src="images/page_2.png">  | You can get better suggestions of how to break down the goal, which is why this page allows the user to enter more information about their goal if needed. This will help give slightly better goal suggestions. |
