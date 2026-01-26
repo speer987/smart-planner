@@ -27,14 +27,11 @@ Backend / API: Google Gemini AI, Node.js
 Other: Vercel (Web App Deployment)
 
 #### Screenshots
-
-| Page                          | Description |
-| ------------------------------ | ------------ |
-| **Page 1** <img src="images/page_1.png">  | Users can enter their goal in the text area and submit, or choose from the suggested goals. They can refresh the suggested items by clicking the circular arrow symbol next to the word "Suggestions". They can also generate a single goal using the "Surprise Me" link underneath the text area.
-| **Page 2** <img src="images/page_2.png">  | You can get better suggestions of how to break down the goal, which is why this page allows the user to enter more information about their goal if needed. This will help give slightly better goal suggestions. |
-| **Page 3** <img src="images/page_3.png">  | Since what you entered on the first page, this page breaks down that goal (with the help of the Gemini API) into four quarterly plans that the user can pick depending on their preferences. This page details quarterly goals for the whole year. |
-| **Page 4** <img src="images/page_4.png">  | Once you pick a quarterly plan, the Gemini API further breaks it down into monthly goals, which are presented on this page.|
-| **Page 5** <img src="images/page_5.png">  | Using the monthly goals, the Gemini API derives the weekly and monthly goals of the yearly goal you entered on the first page based off of all the other breakdowns it has already done. This view allows you to see goals month by month by clicking on tabs, and helps visualize daily goals in each week by clicking the weekly dropdowns in each monthly tab.|
+| <div align="center">**Page 1**</div> <img src="images/page_1.png">  | Users can enter their goal in the text area and submit, or choose from the suggested goals. They can refresh the suggested items by clicking the circular arrow symbol next to the word "Suggestions". They can also generate a single goal using the "Surprise Me" link underneath the text area.
+| <div align="center">**Page 2**</div> <img src="images/page_2.png">  | You can get better suggestions of how to break down the goal, which is why this page allows the user to enter more information about their goal if needed. This will help give slightly better goal suggestions. |
+| <div align="center">**Page 3**</div> <img src="images/page_3.png">  | Since what you entered on the first page, this page breaks down that goal (with the help of the Gemini API) into four quarterly plans that the user can pick depending on their preferences. This page details quarterly goals for the whole year. |
+| <div align="center">**Page 4**</div> <img src="images/page_4.png">  | Once you pick a quarterly plan, the Gemini API further breaks it down into monthly goals, which are presented on this page.|
+| <div align="center">**Page 5**</div> <img src="images/page_5.png">  | Using the monthly goals, the Gemini API derives the weekly and monthly goals of the yearly goal you entered on the first page based off of all the other breakdowns it has already done. This view allows you to see goals month by month by clicking on tabs, and helps visualize daily goals in each week by clicking the weekly dropdowns in each monthly tab.|
 
 
 #### Demo Video
