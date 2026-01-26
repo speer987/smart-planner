@@ -28,19 +28,9 @@ Other: Vercel (Web App Deployment)
 
 #### Screenshots
 
-<div style="display: flex; flex-direction: column; border: 2px solid red;">
-    <div>
-        <p>Page 1</p>
-        <img src="images/page_1.png">
-        <p>Users can enter their goal in the text area and submit, or choose from the suggested goals. They can refresh the suggested items by clicking the circular arrow symbol next to the word "Suggestions". They can also generate a single goal using the "Surprise Me" link underneath the text area.</p>
-    </div>
-    <div>
-        <p>Page 2</p>
-        <img src="images/page_2.png">
-        <p>ADD DESC HERE</p>
-    </div>
-    <div></div>
-</div>
+| Pages                          | Descriptions |
+| ------------------------------ | ------------ |
+| <img src="images/page_1.png">  | Users can enter their goal in the text area and submit, or choose from the suggested goals. They can refresh the suggested items by clicking the circular arrow symbol next to the word "Suggestions". They can also generate a single goal using the "Surprise Me" link underneath the text area.    |
 
 
 #### Demo Video
