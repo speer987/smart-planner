@@ -9,7 +9,7 @@ import {
   suggestSmartGoals,
   getMonthlyPlan,
   getWeeklyAndDaily,
-} from "./api/mockAPI";
+} from "./api/gemini";
 import MonthlyPlan from "./components/MonthlyPlan";
 import Input from "./components/Input";
 import MagicButton from "./components/MagicButton";
